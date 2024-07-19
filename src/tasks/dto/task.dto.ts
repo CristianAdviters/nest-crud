@@ -2,6 +2,6 @@ export class TaskDto {
   id: number;
   name: string;
   description: string;
-  scheduledTime?: number;
+  scheduledTime?: string;
   priority?: number;
 }

@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -22,17 +23,15 @@ export class TasksController {
   }
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
+  findAll(@Query('sort') sort: string) {
+    if (sort === 'priority') {
+      return this.tasksService.findAllPriority();
+    } else return this.tasksService.findAllSchedule();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.tasksService.findOne(+id);
-  }
-  @Get('/sort')
-  sortById(@Param('id') id: string) {
-    return 'sort';
   }
 
   @Patch(':id')
